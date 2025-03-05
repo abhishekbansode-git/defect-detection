@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defect Detector App</title>
+    <style>
+        body {
+            background-image: url('https://a.storyblok.com/f/139616/1920x1080/b41b35ad2f/benefits-computer-vision-defect-detection-scaling.webp');
+            /* Add the path to your background image */
+            background-size: 100% 530%;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: #000;
+            /* Set text color to white for better visibility on the background */
+        }
+
+        h1,
+        label {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Semi-transparent white background for better readability */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            /* Box shadow for a subtle depth effect */
+        }
+
+        input[type="file"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            background-color: #4CAF50;
+            /* Green submit button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            /* Darker green on hover */
+        }
+
+        #prediction {
+            text-align: center;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Semi-transparent white background for prediction result */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            /* Box shadow for a subtle depth effect */
+            max-width: 400px;
+            margin: 0 auto;
+            /* Center horizontally */
+            margin-top: 20px;
+            /* Add margin from the top for better spacing */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Style for good prediction */
+        .good-prediction {
+            color: green;
+        }
+
+        /* Style for bad prediction */
+        .bad-prediction {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/predict" method="post" enctype="multipart/form-data">
+        <h1>Defect Detector App</h1>
+        <label for="file">Choose an image:</label>
+        <input type="file" name="file" accept="image/*" required>
+        <br><br>
+        <input type="submit" value="Predict">
+    </form>
+
+    <!-- Prediction Result Section -->
+    {% if prediction %}
+    <div id="prediction" class="{% if prediction.predicted_label == 'Casting mold is good' %}good-prediction{% else %}bad-prediction{% endif %}">
+        <h2>Prediction Result:</h2>
+        <p>Predicted Probability: {{ prediction.predicted_probability }}</p>
+        <p>Predicted Label: {{ prediction.predicted_label }}</p>
+    </div>
+    {% endif %}
+</body>
+
+</html>

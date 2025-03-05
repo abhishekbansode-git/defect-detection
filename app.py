@@ -15,13 +15,13 @@ MODEL_PATH = "defect_model.h5"
 def download_model():
     if not os.path.exists(MODEL_PATH):
         print("Downloading defect_model.h5 from Google Drive...")
-        gdown.download(f"https://drive.google.com/file/d/1cXfXTa0RwLkopFVS2TXv3BpD7eypRYvK/view?usp=sharing", MODEL_PATH, quiet=False)
+        gdown.download(f"https://drive.google.com/uc?id={FILE_ID}", MODEL_PATH, quiet=False)
 
 # Download the model if necessary
 download_model()
 
 # Load the pre-trained model
-model_resnet = tf.keras.models.load_model('MODEL_PATH')
+model_resnet = tf.keras.models.load_model(MODEL_PATH)
 
 def preprocess_image(image_path):
     img = Image.open(image_path)
